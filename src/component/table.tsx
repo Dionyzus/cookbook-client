@@ -4,7 +4,7 @@ import { deleteRecipe } from "../api/recipeApi";
 import { IPager } from "../interface/IPager";
 import { IRecipe } from "../interface/IRecipe";
 import RecipeTableRow from "./recipe/recipeTableRow";
-import TableFooter from "./tableFooter";
+import Pagination from "./pagination";
 
 interface IProps {
     pager: IPager;
@@ -83,7 +83,7 @@ export default function Table(props: IProps) {
                     )}
                 </tbody>
             </table>
-            <TableFooter pager={pager} />
+            <Pagination pager={pager} />
         </>
     );
 }
