@@ -3,7 +3,7 @@ import Layout from "../layout/layout";
 import Home from "../page/home";
 import About from "../page/about";
 import RecipeCollection from "../page/recipe/recipeCollection";
-import RecipeDetails from "../page/recipe/recipeDetails";
+import RecipeView from "../page/recipe/recipeView";
 import RecipeEdit from "../page/recipe/recipeEdit";
 import RecipeAdd from "../page/recipe/recipeAdd";
 
@@ -35,7 +35,7 @@ export const routes: Array<RouteProps> = [
   {
     exact: true,
     path: "/recipes/view/:index",
-    Component: RecipeDetails,
+    Component: RecipeView,
     Layout: Layout,
   },
   {

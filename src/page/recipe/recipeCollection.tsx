@@ -1,95 +1,65 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
-import { deleteRecipe, getRecipes } from '../../api/recipeApi';
-import Recipe from '../../component/recipe/recipe';
-import { IRecipe } from '../../interface/IRecipe';
+import { useHistory, useLocation } from 'react-router';
+import { getRecipes } from '../../api/recipeApi';
+import Table from '../../component/table';
+import { IPaging } from '../../interface/IPaging';
+
+const LIMIT = 5;
+const OFFSET = 0;
 
 export default function RecipeCollection() {
 
-    const [recipeCollection, setRecipeCollection] = useState<IRecipe[]>();
+    const location = useLocation();
+    const search = location.search;
+    const limitParam = new URLSearchParams(search).get("limit");
+    const offsetParam = new URLSearchParams(search).get("offset");
+
+    const offset = offsetParam != null ? parseInt(offsetParam) : OFFSET;
+    const limit = limitParam != null ? parseInt(limitParam) : LIMIT;
+
+    const [collectionSize, setCollectionSize] = useState();
     const history = useHistory();
+
+    const [paging, setPaging] = useState<IPaging>({
+        pager: {
+            collectionSize: 0,
+            currentPage: 0,
+            pagesCount: 0,
+            pages: []
+        },
+        itemCollection: []
+    });
 
     useEffect(() => {
         async function getRecipeCollection() {
-            const result = await getRecipes();
+            const result = await getRecipes(limit, offset);
             if (result && result.data) {
-                setRecipeCollection(result.data);
+                setCollectionSize(result.data.pager.collectionSize)
+                setPaging({
+                    pager: result.data.pager,
+                    itemCollection: result.data.recipeCollection
+                });
             }
         }
         getRecipeCollection();
-    }, [setRecipeCollection]);
-
-    function handleViewRecipeDetails(recipe: IRecipe, index: number) {
-        history.push({
-            pathname: `/recipes/view/${index}`,
-            state: recipe
-        });
-    }
-
-    function handleEditRecipe(recipe: IRecipe, index: number) {
-        history.push({
-            pathname: `/recipes/edit/${index}`,
-            state: recipe
-        });
-    }
-
-    async function handleDeleteRecipe(recipe: IRecipe, index: number) {
-        if (recipeCollection == null) {
-            return;
-        }
-        try {
-            await deleteRecipe(recipe._id);
-            const dataCopy = [...recipeCollection];
-            dataCopy.splice(index, 1);
-            setRecipeCollection(dataCopy);
-        } catch (error) {
-            console.log("An error has occurred: " + error);
-        }
-    }
+    }, [setCollectionSize, setPaging, offsetParam, limitParam, limit, offset]);
 
     function handleAddNew() {
         history.push(`/recipes/new`);
     }
 
+    const { pager, itemCollection } = paging;
+
     return (
         <>
             {
-                <table>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Ingredients</th>
-                            <th>Description</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    {
-                        recipeCollection != null && recipeCollection.map((el: IRecipe, index: number) =>
-                            <tbody key={el._id}>
-                                <Recipe index={index} element={el} actions={[
-                                    {
-                                        action: () => handleViewRecipeDetails(el, index),
-                                        actionName: 'view'
-                                    },
-                                    {
-                                        action: () => handleEditRecipe(el, index),
-                                        actionName: 'edit'
-                                    },
-                                    {
-                                        action: () => handleDeleteRecipe(el, index),
-                                        actionName: 'delete'
-                                    }
-                                ]} />
-                            </tbody>
-                        )}
-                </table>
+                (itemCollection != null && <Table pager={pager} data={itemCollection} collectionSize={collectionSize || 0} elementsPerPage={limit} />)
             }
-            <>
+            <div>
                 <button onClick={handleAddNew}
                     color="primary">new
                 </button>
-            </>
+            </div>
         </>
     );
 }

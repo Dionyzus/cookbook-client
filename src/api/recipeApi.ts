@@ -1,8 +1,8 @@
 import { IRecipe } from "../interface/IRecipe";
 import { baseApi } from "./baseApi";
 
-export async function getRecipes() {
-    return await baseApi.get("/api/recipes");
+export async function getRecipes(limit: number, offset: number) {
+    return await baseApi.get(`/api/recipes?limit=${limit}&offset=${offset}`);
 }
 
 export async function getRecipeById(id: string) {

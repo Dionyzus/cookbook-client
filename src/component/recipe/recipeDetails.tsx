@@ -3,30 +3,28 @@ import { IAction } from "../../interface/IAction";
 import { IRecipe } from "../../interface/IRecipe";
 
 interface IProps {
-    index: number | null;
     element: IRecipe;
     actions: IAction[];
 }
 
-export default function Recipe(props: IProps) {
+export default function RecipeDetails(props: IProps) {
 
-    const { index, element, actions } = props;
+    const { element, actions } = props;
     return (
         <>
-            <tr>
-                <td>{index}</td>
-                <td>{element.name}</td>
-                <td>{element.ingredients}</td>
-                <td>{element.description}</td>
+            <div>Name: {element.name}</div>
+            <div>Ingredients: {element.ingredients}</div>
+            <div>Description: {element.description}</div>
 
+            <div>
                 {actions != null && actions.map((el: IAction, index: number) =>
-                    <td key={index}>
+                    <div key={index}>
                         <button onClick={() => actions[index].action(element)}
                             color="primary"
                         >{actions[index].actionName}</button>
-                    </td>
+                    </div>
                 )}
-            </tr>
+            </div>
         </>
     );
 }
