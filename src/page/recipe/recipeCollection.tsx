@@ -29,22 +29,9 @@ export default function RecipeCollection() {
         itemCollection: []
     });
 
-    //TODO: Extract to custom hook
     useEffect(() => {
         async function getRecipeCollection() {
-            const searchQuery = {
-                "limit": limit.toString(),
-                "offset": offset.toString()
-            };
-            const searchParams = new URLSearchParams(searchQuery);
-
-            const result = await getRecipes(searchParams);
-            if (result && result.data) {
-                setFilteredPaging({
-                    pager: result.data.pager,
-                    itemCollection: result.data.collection
-                });
-            }
+            await fetchData(limit, offset, setFilteredPaging);
         }
         getRecipeCollection();
     }, [offsetParam, limitParam, limit, offset]);
@@ -77,4 +64,17 @@ export default function RecipeCollection() {
             </div>
         </>
     );
+}
+
+async function fetchData(limit: number, offset: number, setFilteredPaging: React.Dispatch<React.SetStateAction<IPaging>>) {
+    const result = await getRecipes(new URLSearchParams({
+        "limit": limit.toString(),
+        "offset": offset.toString()
+    }));
+    if (result && result.data) {
+        setFilteredPaging({
+            pager: result.data.pager,
+            itemCollection: result.data.collection
+        });
+    }
 }

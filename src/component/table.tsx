@@ -44,7 +44,7 @@ export default function Table(props: IProps) {
         try {
             await deleteRecipe(recipe._id);
             const dataCopy = [...updatedData];
-            dataCopy.splice(index, 1);
+            dataCopy.splice((index - initialIndex), 1);
             setUpdatedData(dataCopy);
         } catch (error) {
             console.log("An error has occurred: " + error);
