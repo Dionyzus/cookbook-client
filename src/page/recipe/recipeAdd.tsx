@@ -31,7 +31,7 @@ export default function RecipeAdd() {
     return (
         <>
             {
-                <RecipeForm element={recipe} handleOnChange={handleChange} handleOnSubmit={handleSubmit}></RecipeForm>
+                <RecipeForm element={recipe} onChangeHandler={handleChange} onSubmitHandler={handleSubmit} submitText='save'></RecipeForm>
             }
         </>
     )

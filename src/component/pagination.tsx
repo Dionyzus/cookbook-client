@@ -31,7 +31,13 @@ export default function Pagination(props: IProps) {
 
     async function handlePageChange(page: number) {
         if (page !== currentPage) {
-            const result = await getRecipes(limit, page);
+            const searchQuery = {
+                "limit": limit.toString(),
+                "offset": page.toString()
+            };
+            const searchParams = new URLSearchParams(searchQuery);
+
+            const result = await getRecipes(searchParams);
             if (result && result.data) {
                 setCurrentPage(page);
                 history.push(`?offset=${page}`);
@@ -44,7 +50,7 @@ export default function Pagination(props: IProps) {
     return (
         <>
             <div>
-                {pager.pages && pager.collectionSize &&
+                {pager.pages && pager.collectionSize ?
                     <>
                         {pager.currentPage !== 1 &&
                             <button onClick={() => handlePageChange(0)}>
@@ -76,7 +82,7 @@ export default function Pagination(props: IProps) {
                             </button>
                         }
                     </>
-                }
+                    : null}
             </div>
         </>
     );

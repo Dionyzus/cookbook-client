@@ -30,7 +30,7 @@ export default function RecipeEdit() {
     return (
         <>
             {
-                <RecipeForm element={recipe} handleOnChange={handleChange} handleOnSubmit={handleSubmit}></RecipeForm>
+                <RecipeForm element={recipe} onChangeHandler={handleChange} onSubmitHandler={handleSubmit} submitText='update'></RecipeForm>
             }
         </>
     )

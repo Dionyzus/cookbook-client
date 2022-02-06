@@ -7,6 +7,7 @@ import RecipeTableRow from "./recipe/recipeTableRow";
 import Pagination from "./pagination";
 
 interface IProps {
+    initialIndex: number;
     pager: IPager;
     data: IRecipe[];
     collectionSize: number;
@@ -15,7 +16,7 @@ interface IProps {
 
 export default function Table(props: IProps) {
     const history = useHistory();
-    const { data, pager } = props;
+    const { data, pager, initialIndex } = props;
     const [updatedData, setUpdatedData] = useState<IRecipe[]>(data);
 
     useEffect(() => {
@@ -65,17 +66,17 @@ export default function Table(props: IProps) {
                 <tbody>
                     {updatedData != null && updatedData.map((el: IRecipe, index: number) =>
                         <tr key={el._id}>
-                            <RecipeTableRow index={index} element={el} actions={[
+                            <RecipeTableRow index={initialIndex + index} element={el} actions={[
                                 {
-                                    action: () => handleViewRecipeDetails(el, index),
+                                    action: () => handleViewRecipeDetails(el, initialIndex + index),
                                     actionName: 'view'
                                 },
                                 {
-                                    action: () => handleEditRecipe(el, index),
+                                    action: () => handleEditRecipe(el, initialIndex + index),
                                     actionName: 'edit'
                                 },
                                 {
-                                    action: () => handleDeleteRecipe(el, index),
+                                    action: () => handleDeleteRecipe(el, initialIndex + index),
                                     actionName: 'delete'
                                 }
                             ]} />

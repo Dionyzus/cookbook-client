@@ -3,6 +3,7 @@ import { useHistory, useLocation } from 'react-router';
 import { getRecipes } from '../../api/recipeApi';
 import Table from '../../component/table';
 import { IPaging } from '../../interface/IPaging';
+import RecipeSearch from './recipeSearch';
 
 const LIMIT = 5;
 const OFFSET = 0;
@@ -16,11 +17,9 @@ export default function RecipeCollection() {
 
     const offset = offsetParam != null ? parseInt(offsetParam) : OFFSET;
     const limit = limitParam != null ? parseInt(limitParam) : LIMIT;
-
-    const [collectionSize, setCollectionSize] = useState();
     const history = useHistory();
 
-    const [paging, setPaging] = useState<IPaging>({
+    const [filteredPaging, setFilteredPaging] = useState<IPaging>({
         pager: {
             collectionSize: 0,
             currentPage: 0,
@@ -30,30 +29,46 @@ export default function RecipeCollection() {
         itemCollection: []
     });
 
+    //TODO: Extract to custom hook
     useEffect(() => {
         async function getRecipeCollection() {
-            const result = await getRecipes(limit, offset);
+            const searchQuery = {
+                "limit": limit.toString(),
+                "offset": offset.toString()
+            };
+            const searchParams = new URLSearchParams(searchQuery);
+
+            const result = await getRecipes(searchParams);
             if (result && result.data) {
-                setCollectionSize(result.data.pager.collectionSize)
-                setPaging({
+                setFilteredPaging({
                     pager: result.data.pager,
                     itemCollection: result.data.recipeCollection
                 });
             }
         }
         getRecipeCollection();
-    }, [setCollectionSize, setPaging, offsetParam, limitParam, limit, offset]);
+    }, [offsetParam, limitParam, limit, offset]);
+
+    useEffect(() => {
+        setFilteredPaging(filteredPaging);
+    }, [filteredPaging])
 
     function handleAddNew() {
         history.push(`/recipes/new`);
     }
 
-    const { pager, itemCollection } = paging;
+    const { pager: filteredPager, itemCollection: filteredItemCollection } = filteredPaging;
 
     return (
         <>
+            <RecipeSearch filteredDataHandler={setFilteredPaging}></RecipeSearch>
             {
-                (itemCollection != null && <Table pager={pager} data={itemCollection} collectionSize={collectionSize || 0} elementsPerPage={limit} />)
+                <Table pager={filteredPager}
+                    initialIndex={offset * limit}
+                    data={filteredItemCollection.length > 0 ? filteredItemCollection : []}
+                    collectionSize={filteredPager.collectionSize || 0}
+                    elementsPerPage={limit}
+                />
             }
             <div>
                 <button onClick={handleAddNew}

@@ -3,25 +3,25 @@ import { IRecipe } from "../../interface/IRecipe";
 
 interface IProps {
     element: IRecipe;
-    handleOnSubmit: (event: React.FormEvent<HTMLFormElement>, recipe: IRecipe) => void;
-    handleOnChange: (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+    onSubmitHandler: (event: React.FormEvent<HTMLFormElement>, recipe: IRecipe) => void;
+    onChangeHandler: (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+    submitText: string;
 }
-
 
 export default function RecipeForm(props: IProps) {
 
-    const { element, handleOnSubmit: submitAction, handleOnChange: changeAction } = props;
+    const { element, onSubmitHandler, onChangeHandler, submitText } = props;
 
     return (
         <>
-            <form onSubmit={(event: React.FormEvent<HTMLFormElement>) => submitAction(event, element)}>
+            <form onSubmit={(event: React.FormEvent<HTMLFormElement>) => onSubmitHandler(event, element)}>
                 <label>Name:
                     <input
                         id="name"
                         type="text"
                         name="name"
                         value={element.name}
-                        onChange={changeAction}
+                        onChange={onChangeHandler}
                     />
                 </label>
                 <label>Ingredients:
@@ -29,7 +29,7 @@ export default function RecipeForm(props: IProps) {
                         id="ingredients"
                         name="ingredients"
                         value={element.ingredients}
-                        onChange={changeAction}
+                        onChange={onChangeHandler}
                     />
                 </label>
                 <label>description:
@@ -37,10 +37,10 @@ export default function RecipeForm(props: IProps) {
                         id="description"
                         name="description"
                         value={element.description}
-                        onChange={changeAction}
+                        onChange={onChangeHandler}
                     />
                 </label>
-                <input type="submit" />
+                <input type="submit" value={submitText || "submit"} />
             </form>
         </>
     )
