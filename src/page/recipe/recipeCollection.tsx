@@ -64,7 +64,7 @@ export default function RecipeCollection() {
             <RecipeSearch filteredDataHandler={setFilteredPaging}></RecipeSearch>
             {
                 <Table pager={filteredPager}
-                    initialIndex={offset * limit}
+                    initialIndex={(filteredPager.currentPage - 1) * limit}
                     data={filteredItemCollection.length > 0 ? filteredItemCollection : []}
                     collectionSize={filteredPager.collectionSize || 0}
                     elementsPerPage={limit}
