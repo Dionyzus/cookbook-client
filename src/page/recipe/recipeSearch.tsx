@@ -19,17 +19,13 @@ export default function RecipeSearch(props: IProps) {
             if (debouncedText !== searchText) {
                 return;
             }
-            const searchQuery = {
-                "name": debouncedText,
-                "text": debouncedText
-            };
-            const searchParams = new URLSearchParams(searchQuery);
-
-            const result = await getRecipes(searchParams);
+            const result = await getRecipes(new URLSearchParams({
+                "text": debouncedText,
+            }));
             if (result && result.data) {
                 filteredDataHandler({
                     pager: result.data.pager,
-                    itemCollection: result.data.recipeCollection
+                    itemCollection: result.data.collection
                 });
             }
         }

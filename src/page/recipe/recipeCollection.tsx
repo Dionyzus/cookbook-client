@@ -42,7 +42,7 @@ export default function RecipeCollection() {
             if (result && result.data) {
                 setFilteredPaging({
                     pager: result.data.pager,
-                    itemCollection: result.data.recipeCollection
+                    itemCollection: result.data.collection
                 });
             }
         }
