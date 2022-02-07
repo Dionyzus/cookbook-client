@@ -18,10 +18,10 @@ export default function IngredientForm(props: IProps) {
             <td>{index}</td>
             <td>
                 <input
-                    id="ingredientName"
+                    id="ingredient"
                     type="text"
-                    name="ingredientName"
-                    value={element.ingredients[index].ingredientName}
+                    name="ingredient"
+                    value={element.ingredients[index].ingredient}
                     onChange={(event: any) => onChangeHandler(event, index)}
                 />
             </td>

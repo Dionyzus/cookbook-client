@@ -14,7 +14,7 @@ export async function getRecipeById(id: string) {
 
 export async function saveRecipe(recipe: IRecipe) {
     const { name, ingredients, description } = recipe;
-    const filteredIngredients = ingredients.filter(ingredient => ingredient.ingredientName !== "");
+    const filteredIngredients = ingredients.filter(ingredient => ingredient.ingredient !== "");
 
     return await baseApi.post(
         "/api/recipes/",
@@ -28,7 +28,7 @@ export async function saveRecipe(recipe: IRecipe) {
 
 export async function updateRecipe(recipe: IRecipe) {
     const { name, ingredients, description } = recipe;
-    const filteredIngredients = ingredients.filter(ingredient => ingredient.ingredientName !== "");
+    const filteredIngredients = ingredients.filter(ingredient => ingredient.ingredient !== "");
 
     return await baseApi.put(
         `/api/recipes/${recipe._id}`,

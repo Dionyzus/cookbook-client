@@ -19,7 +19,7 @@ export default function RecipeForm(props: IProps) {
     const [currentIndex, setCurrentIndex] = useState<number>(0);
     const [ingredient, setIngredient] = useState<IIngredient>(
         {
-            ingredientName: "",
+            ingredient: "",
             amount: {
                 value: "",
                 unit: "g"
@@ -28,12 +28,12 @@ export default function RecipeForm(props: IProps) {
     );
 
     function handleSubmit() {
-        if (isNullOrEmpty(element.ingredients[currentIndex].ingredientName) || isNullOrEmpty(element.ingredients[currentIndex].amount.value)) {
+        if (isNullOrEmpty(element.ingredients[currentIndex].ingredient) || isNullOrEmpty(element.ingredients[currentIndex].amount.value)) {
             return;
         }
         element.ingredients.push(ingredient);
         const newIngredient = {
-            ingredientName: "",
+            ingredient: "",
             amount: {
                 value: "",
                 unit: "g"

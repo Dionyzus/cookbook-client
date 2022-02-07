@@ -17,7 +17,7 @@ export default function RecipeDetails(props: IProps) {
             <div>Ingredients:
                 {element.ingredients != null && element.ingredients.map((el: IIngredient, index: number) =>
                     <div key={index}>
-                        <div>{el.ingredientName}</div>
+                        <div>{el.ingredient}</div>
                         <div>{el.amount.value} {el.amount.unit}</div>
                     </div>
                 )}

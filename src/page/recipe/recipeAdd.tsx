@@ -13,7 +13,7 @@ export default function RecipeAdd() {
             _id: "",
             name: "",
             ingredients: [{
-                ingredientName: "",
+                ingredient: "",
                 amount: {
                     value: 0,
                     unit: "g"

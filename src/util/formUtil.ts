@@ -2,17 +2,17 @@ import { IIngredient } from "../interface/IIngredient";
 import { IRecipe } from "../interface/IRecipe";
 
 export function updateAndGetState(key: string, value: string, state: IRecipe, index: number) {
-    if (key === "ingredientName") {
+    if (key === "ingredient") {
         const { ingredients } = state;
         const updatedIngredient = {
-            ingredientName: value,
+            ingredient: value,
             amount: state.ingredients[index].amount,
         };
         return updateState(ingredients, index, updatedIngredient, state);
     } else if (key === "value") {
         const { ingredients } = state;
         const updatedIngredient = {
-            ingredientName: state.ingredients[index].ingredientName,
+            ingredient: state.ingredients[index].ingredient,
             amount: {
                 value: value,
                 unit: state.ingredients[index].amount.unit
@@ -22,7 +22,7 @@ export function updateAndGetState(key: string, value: string, state: IRecipe, in
     } else {
         const { ingredients } = state;
         const updatedIngredient = {
-            ingredientName: state.ingredients[index].ingredientName,
+            ingredient: state.ingredients[index].ingredient,
             amount: {
                 value: state.ingredients[index].amount.value,
                 unit: value
