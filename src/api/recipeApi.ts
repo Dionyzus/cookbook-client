@@ -13,23 +13,29 @@ export async function getRecipeById(id: string) {
 }
 
 export async function saveRecipe(recipe: IRecipe) {
+    const { name, ingredients, description } = recipe;
+    const filteredIngredients = ingredients.filter(ingredient => ingredient.ingredientName !== "");
+
     return await baseApi.post(
         "/api/recipes/",
         {
-            name: recipe.name,
-            ingredients: recipe.ingredients,
-            description: recipe.description
+            name: name,
+            ingredients: filteredIngredients,
+            description: description
         },
     );
 }
 
 export async function updateRecipe(recipe: IRecipe) {
+    const { name, ingredients, description } = recipe;
+    const filteredIngredients = ingredients.filter(ingredient => ingredient.ingredientName !== "");
+
     return await baseApi.put(
         `/api/recipes/${recipe._id}`,
         {
-            name: recipe.name,
-            ingredients: recipe.ingredients,
-            description: recipe.description
+            name: name,
+            ingredients: filteredIngredients,
+            description: description
         },
     );
 }

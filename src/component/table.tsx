@@ -58,7 +58,6 @@ export default function Table(props: IProps) {
                     <tr>
                         <th>#</th>
                         <th>Name</th>
-                        <th>Ingredients</th>
                         <th>Description</th>
                         <th>Actions</th>
                     </tr>

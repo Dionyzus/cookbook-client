@@ -15,7 +15,6 @@ export default function RecipeTableRow(props: IProps) {
         <>
             <td>{index}</td>
             <td>{element.name}</td>
-            <td>{element.ingredients}</td>
             <td>{element.description}</td>
 
             {actions != null && actions.map((el: IAction, index: number) =>

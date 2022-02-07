@@ -3,13 +3,25 @@ import { useHistory } from 'react-router';
 import { saveRecipe } from '../../api/recipeApi';
 import RecipeForm from '../../component/recipe/recipeForm';
 import { IRecipe } from '../../interface/IRecipe';
-
+import { updateAndGetState } from '../../util/formUtil';
 
 export default function RecipeAdd() {
 
     const history = useHistory();
     const [recipe, setRecipe] = useState<IRecipe>(
-        { _id: "", name: "", ingredients: "", description: "" }
+        {
+            _id: "",
+            name: "",
+            ingredients: [{
+                ingredientName: "",
+                amount: {
+                    value: 0,
+                    unit: "g"
+                },
+            }
+            ],
+            description: ""
+        }
     );
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>, recipe: IRecipe) {
@@ -28,10 +40,23 @@ export default function RecipeAdd() {
         });
     }
 
+    function handleIngredientChange(event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, index: number) {
+        const { name, value } = event.currentTarget;
+        const updatedState = updateAndGetState(name, value, recipe, index);
+        setRecipe(updatedState);
+    }
+
+
+    function handleIngredientAmountChange(event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, index: number) {
+        const { name, value } = event.currentTarget;
+        const updatedState = updateAndGetState(name, value, recipe, index);
+        setRecipe(updatedState);
+    }
+
     return (
         <>
             {
-                <RecipeForm element={recipe} onChangeHandler={handleChange} onSubmitHandler={handleSubmit} submitText='save'></RecipeForm>
+                <RecipeForm element={recipe} onChangeHandler={handleChange} onIngredientChangeHandler={handleIngredientChange} onIngredientAmountChangeHandler={handleIngredientAmountChange} onSubmitHandler={handleSubmit} submitText='save'></RecipeForm>
             }
         </>
     )

@@ -3,7 +3,7 @@ import { useHistory, useLocation } from 'react-router';
 import { updateRecipe } from '../../api/recipeApi';
 import RecipeForm from '../../component/recipe/recipeForm';
 import { IRecipe } from '../../interface/IRecipe';
-
+import { updateAndGetState } from '../../util/formUtil';
 
 export default function RecipeEdit() {
 
@@ -27,10 +27,22 @@ export default function RecipeEdit() {
         });
     }
 
+    function handleIngredientChange(event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, index: number) {
+        const { name, value } = event.currentTarget;
+        const updatedState = updateAndGetState(name, value, recipe, index);
+        setRecipe(updatedState);
+    }
+
+    function handleIngredientAmountChange(event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, index: number) {
+        const { name, value } = event.currentTarget;
+        const updatedState = updateAndGetState(name, value, recipe, index);
+        setRecipe(updatedState);
+    }
+
     return (
         <>
             {
-                <RecipeForm element={recipe} onChangeHandler={handleChange} onSubmitHandler={handleSubmit} submitText='update'></RecipeForm>
+                <RecipeForm element={recipe} onChangeHandler={handleChange} onIngredientChangeHandler={handleIngredientChange} onIngredientAmountChangeHandler={handleIngredientAmountChange} onSubmitHandler={handleSubmit} submitText='update'></RecipeForm>
             }
         </>
     )
