@@ -11,7 +11,7 @@ interface IProps {
 export default function IngredientForm(props: IProps) {
 
     const { element, onChangeHandler, onAmountChangeHandler, index } = props;
-    const unitChoices = ["g", "kg", "ml", "l"];
+    const unitChoices = ["g", "kg", "ml", "l", "num"];
 
     return (
         <>

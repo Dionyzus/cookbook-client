@@ -1,9 +1,10 @@
 import { IRecipe } from "../interface/IRecipe";
+import { isNullOrEmpty } from "../util/stringUtil";
 import { baseApi } from "./baseApi";
 
 export async function getRecipes(queryParams: URLSearchParams) {
-    if (queryParams == null) {
-        return await baseApi.get("/api/recipes");
+    if (queryParams == null || isNullOrEmpty(queryParams.get("text"))) {
+        return await baseApi.get(`/api/recipes?${queryParams}`);
     }
     return await baseApi.get(`/api/recipes/search?${queryParams}`);
 }
