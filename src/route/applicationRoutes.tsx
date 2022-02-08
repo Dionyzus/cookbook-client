@@ -1,25 +1,11 @@
 import { RouteProps } from "./route";
 import Layout from "../layout/layout";
-import Home from "../page/home";
-import About from "../page/about";
 import RecipeCollection from "../page/recipe/recipeCollection";
 import RecipeView from "../page/recipe/recipeView";
 import RecipeEdit from "../page/recipe/recipeEdit";
 import RecipeAdd from "../page/recipe/recipeAdd";
 
 export const routes: Array<RouteProps> = [
-  {
-    exact: true,
-    path: "/",
-    Component: Home,
-    Layout: Layout,
-  },
-  {
-    exact: true,
-    path: "/about",
-    Component: About,
-    Layout: Layout,
-  },
   {
     exact: true,
     path: "/recipes",

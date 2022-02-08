@@ -5,7 +5,7 @@ export async function getRecipes(queryParams: URLSearchParams) {
     if (queryParams == null) {
         return await baseApi.get("/api/recipes");
     }
-    return await baseApi.get(`/api/recipes?${queryParams}`);
+    return await baseApi.get(`/api/recipes/search?${queryParams}`);
 }
 
 export async function getRecipeById(id: string) {
