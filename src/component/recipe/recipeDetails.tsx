@@ -15,7 +15,7 @@ export default function RecipeDetails(props: IProps) {
 
     const { element, actions } = props;
     return (
-        <div className={contentStyles.box}>
+        <div>
             <h5 className={contentStyles.name}>{element.name}</h5>
             <h6 className={contentStyles.listTitle}>Ingredients:</h6>
             <div className={contentStyles.textarea}>

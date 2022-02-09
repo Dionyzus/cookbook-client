@@ -2,14 +2,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 80vh;
   width: 100vw;
 }
 
 .title {
   font-size: 35px;
-  padding-top: 25px;
-  padding-bottom: 25px;
   text-align: center;
   color: #2b0808;
 }
@@ -21,13 +18,6 @@
   flex-wrap: "wrap";
 }
 
-.box {
-  min-width: 50%;
-  height: 100vh;
-  margin: 0vw;
-  padding: 5vw;
-  position: relative;
-}
 .name {
   font-size: 35px;
   text-align: center;

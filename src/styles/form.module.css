@@ -1,9 +1,5 @@
 .formBox {
   min-width: 50%;
-  height: 100vh;
-  margin: 0vw;
-  padding: 5vw;
-  position: relative;
 }
 .formName {
   font-size: 35px;
@@ -15,7 +11,8 @@
   margin-top: 10px;
   display: block;
   text-align: left;
-  font-size: 20px;
+  font-size: 30px;
+  font-weight: bold;
   margin: 0 0 2vh 0;
 }
 .input,

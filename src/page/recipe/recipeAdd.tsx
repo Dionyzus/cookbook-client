@@ -56,7 +56,7 @@ export default function RecipeAdd() {
     return (
         <div>
             {
-                <RecipeForm element={recipe} onChangeHandler={handleChange} onIngredientChangeHandler={handleIngredientChange} onIngredientAmountChangeHandler={handleIngredientAmountChange} onSubmitHandler={handleSubmit} submitText='save'></RecipeForm>
+                <RecipeForm element={recipe} onChangeHandler={handleChange} onIngredientChangeHandler={handleIngredientChange} onIngredientAmountChangeHandler={handleIngredientAmountChange} onSubmitHandler={handleSubmit} submitText='Save'></RecipeForm>
             }
         </div>
     )

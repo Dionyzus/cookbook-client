@@ -4,8 +4,15 @@ import RecipeCollection from "../page/recipe/recipeCollection";
 import RecipeView from "../page/recipe/recipeView";
 import RecipeEdit from "../page/recipe/recipeEdit";
 import RecipeAdd from "../page/recipe/recipeAdd";
+import Home from "../page/recipe/home/home";
 
 export const routes: Array<RouteProps> = [
+  {
+    exact: true,
+    path: "/",
+    Component: Home,
+    Layout: Layout,
+  },
   {
     exact: true,
     path: "/recipes",
