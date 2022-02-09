@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
-import { deleteRecipe } from "../api/recipeApi";
-import { IPager } from "../interface/IPager";
-import { IRecipe } from "../interface/IRecipe";
-import RecipeTableRow from "./recipe/recipeTableRow";
-import Pagination from "./pagination";
+import { deleteRecipe } from "../../api/recipeApi";
+import { IPager } from "../../interface/IPager";
+import { IRecipe } from "../../interface/IRecipe";
+import Pagination from "../pagination/pagination";
+import RecipeTableRow from "../recipe/recipeTableRow";
+
+import styles from "../../styles/table.module.css";
 
 interface IProps {
     initialIndex: number;
@@ -14,7 +16,7 @@ interface IProps {
     elementsPerPage: number;
 }
 
-export default function Table(props: IProps) {
+export default function RecipeTable(props: IProps) {
     const history = useHistory();
     const { data, pager, initialIndex } = props;
     const [updatedData, setUpdatedData] = useState<IRecipe[]>(data);
@@ -53,30 +55,32 @@ export default function Table(props: IProps) {
 
     return (
         <>
-            <table>
-                <thead>
+            <table className={styles.table}>
+                <thead className={styles.tableRowHeader}>
                     <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Actions</th>
+                        <th className={styles.tableHeader}>#</th>
+                        <th className={styles.tableHeader}>Name</th>
+                        <th className={styles.tableHeader}>Description</th>
+                        <th className={styles.tableHeader}></th>
+                        <th className={styles.tableHeader}>Actions</th>
+                        <th className={styles.tableHeader}></th>
                     </tr>
                 </thead>
                 <tbody>
                     {updatedData != null && updatedData.map((el: IRecipe, index: number) =>
-                        <tr key={el._id}>
+                        <tr className={styles.tableRowItems} key={el._id}>
                             <RecipeTableRow index={initialIndex + index} element={el} actions={[
                                 {
                                     action: () => handleViewRecipeDetails(el, initialIndex + index),
-                                    actionName: 'view'
+                                    actionName: 'Details'
                                 },
                                 {
                                     action: () => handleEditRecipe(el, initialIndex + index),
-                                    actionName: 'edit'
+                                    actionName: 'Edit'
                                 },
                                 {
                                     action: () => handleDeleteRecipe(el, initialIndex + index),
-                                    actionName: 'delete'
+                                    actionName: 'Delete'
                                 }
                             ]} />
                         </tr>

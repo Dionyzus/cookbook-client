@@ -4,6 +4,9 @@ import { IRecipe } from "../../interface/IRecipe";
 import { isNullOrEmpty } from "../../util/stringUtil";
 import IngredientForm from "../ingredient/ingredientForm";
 
+import tableStyles from "../../styles/table.module.css";
+import formStyles from "../../styles/form.module.css";
+
 interface IProps {
     element: IRecipe;
     onSubmitHandler: (event: React.FormEvent<HTMLFormElement>, recipe: IRecipe) => void;
@@ -53,12 +56,14 @@ export default function RecipeForm(props: IProps) {
     }
 
     return (
-        <>
+        <div className={formStyles.formBox}>
+            <h5 className={formStyles.formName}>Recipe</h5>
             <form onSubmit={(event: React.FormEvent<HTMLFormElement>) => onSubmitHandler(event, element)}>
                 <div>
-                    <label style={{ display: "block" }}>Recipe
+                    <label className={formStyles.label}>
+                        Name
                         <input
-                            style={{ display: "block" }}
+                            className={formStyles.input}
                             id="name"
                             type="text"
                             name="name"
@@ -68,33 +73,34 @@ export default function RecipeForm(props: IProps) {
                     </label>
                 </div>
                 <div>
-                    Ingredients
-                    <table>
-                        <thead>
+                    <label className={formStyles.label}>Ingredients</label>
+                    <table className={tableStyles.table}>
+                        <thead className={tableStyles.tableRowHeader}>
                             <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Amount</th>
-                                <th>Unit</th>
+                                <th className={tableStyles.tableHeader}>#</th>
+                                <th className={tableStyles.tableHeader}>Name</th>
+                                <th className={tableStyles.tableHeader}>Amount</th>
+                                <th className={tableStyles.tableHeader}>Unit</th>
                             </tr>
                         </thead>
                         <tbody>
                             {element.ingredients != null && element.ingredients.map((el: IIngredient, index: number) =>
-                                <tr key={index}>
+                                <tr className={tableStyles.tableRowItems} key={index}>
                                     <IngredientForm element={element} onChangeHandler={handleChange}
                                         onAmountChangeHandler={handleIngredientAmountChange} index={index}></IngredientForm>
                                 </tr>
                             )}
                         </tbody>
                     </table>
-                    <button type="button" onClick={() => handleSubmit()}>add</button>
+                    <div className={tableStyles.tableFooter}>
+                        <button className={tableStyles.button} type="button" onClick={() => handleSubmit()}>Add Another</button>
+                    </div>
                 </div>
                 <div>
-                    <label style={{ display: "block" }}>
+                    <label className={formStyles.label}>
                         Description
-
                         <textarea
-                            style={{ display: "block" }}
+                            className={formStyles.textarea}
                             id="description"
                             name="description"
                             value={element.description}
@@ -102,8 +108,8 @@ export default function RecipeForm(props: IProps) {
                         />
                     </label>
                 </div>
-                <input type="submit" value={submitText || "submit"} />
+                <input className={tableStyles.button} type="submit" value={submitText || "submit"} />
             </form>
-        </>
+        </div>
     )
 }

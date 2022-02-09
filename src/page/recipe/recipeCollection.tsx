@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { getRecipes } from '../../api/recipeApi';
-import Table from '../../component/table';
 import { IPaging } from '../../interface/IPaging';
 import RecipeSearch from './recipeSearch';
+import RecipeTable from '../../component/recipe/recipeTable';
+
+import styles from "../../styles/table.module.css";
 
 const LIMIT = 5;
 const OFFSET = 0;
@@ -47,10 +49,10 @@ export default function RecipeCollection() {
     const { pager: filteredPager, itemCollection: filteredItemCollection } = filteredPaging;
 
     return (
-        <>
+        <div>
             <RecipeSearch filteredDataHandler={setFilteredPaging}></RecipeSearch>
             {
-                <Table pager={filteredPager}
+                <RecipeTable pager={filteredPager}
                     initialIndex={(filteredPager.currentPage - 1) * limit}
                     data={filteredItemCollection.length > 0 ? filteredItemCollection : []}
                     collectionSize={filteredPager.collectionSize || 0}
@@ -58,11 +60,11 @@ export default function RecipeCollection() {
                 />
             }
             <div>
-                <button onClick={handleAddNew}
-                    color="primary">new
+                <button className={styles.button} onClick={handleAddNew}
+                    color="primary">New Recipe
                 </button>
             </div>
-        </>
+        </div>
     );
 }
 

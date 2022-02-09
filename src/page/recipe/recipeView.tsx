@@ -17,13 +17,13 @@ export default function RecipeView() {
     }
 
     return (
-        <>
+        <div>
             <RecipeDetails element={state} actions={[
                 {
                     action: () => handleEditRecipe(state),
-                    actionName: 'edit'
+                    actionName: 'Edit'
                 }
             ]} />
-        </>
+        </div>
     );
 }

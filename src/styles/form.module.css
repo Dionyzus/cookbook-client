@@ -1,0 +1,45 @@
+.formBox {
+  min-width: 50%;
+  height: 100vh;
+  margin: 0vw;
+  padding: 5vw;
+  position: relative;
+}
+.formName {
+  font-size: 35px;
+  text-align: center;
+  color: #5a2100;
+  margin: "auto";
+}
+.label {
+  margin-top: 10px;
+  display: block;
+  text-align: left;
+  font-size: 20px;
+  margin: 0 0 2vh 0;
+}
+.input,
+textarea {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0.8rem 0.5rem 0.8rem;
+  margin: 0.9vw 0;
+  border: 0;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+.inputTable {
+  display: block;
+  width: 65%;
+  padding: 0.5rem 0.8rem 0.5rem 0.8rem;
+  margin: 0.9vw 0;
+  border: 0;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+.textarea {
+  display: block;
+  height: 15vh;
+}

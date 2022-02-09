@@ -1,7 +1,11 @@
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, useEffect } from "react";
 import { getRecipes } from "../../api/recipeApi";
 import { useDebounce } from "../../hook/useDebounce";
 import { IPaging } from "../../interface/IPaging";
+
+import styles from "../../styles/search.module.css";
 
 interface IProps {
     filteredDataHandler: (filteredCollection: IPaging) => void;
@@ -28,18 +32,19 @@ export default function RecipeSearch(props: IProps) {
     }
 
     return (
-        <>
-            <div>
-                <h2>Search</h2>
-            </div>
-            <div>
+        <div className={styles.wrap}>
+            <div className={styles.search}>
                 <input
+                    className={styles.searchTerm}
                     type="search"
-                    placeholder="Search Recipe"
+                    placeholder="Search"
                     onChange={handleChange}
                 />
+                <button type="submit" className={styles.searchButton}>
+                    <FontAwesomeIcon size="sm" icon={faSearch} />
+                </button>
             </div>
-        </>
+        </div>
     );
 }
 

@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import { getRecipes } from "../api/recipeApi";
-import { IPager } from "../interface/IPager";
-import { generateArray } from "../util/arrayUtil";
+import { getRecipes } from "../../api/recipeApi";
+import { IPager } from "../../interface/IPager";
+import { generateArray } from "../../util/arrayUtil";
+
+import tableStyles from "../../styles/table.module.css";
+import selectStyles from "../../styles/select.module.css";
 
 const LIMIT = 5;
 const OFFSET = 0;
@@ -57,39 +60,36 @@ export default function Pagination(props: IProps) {
 
     return (
         <>
-            <div>
+            <div className={tableStyles.tableFooter}>
                 {pager.pages && pager.collectionSize ?
                     <>
                         {pager.currentPage !== 1 &&
-                            <button onClick={() => handlePageChange(0, currentLimit)}>
+                            <button className={tableStyles.button} onClick={() => handlePageChange(0, currentLimit)}>
                                 First
                             </button>
                         }
                         {pager.currentPage !== 1 &&
-                            <button onClick={() => handlePageChange(currentPage - 1, currentLimit)}>
+                            <button className={tableStyles.button} onClick={() => handlePageChange(currentPage - 1, currentLimit)}>
                                 Previous
                             </button>
                         }
                         {pager.pages.map(page =>
-                        (page === currentPage ?
-                            <button style={{ fontWeight: "bolder" }} key={page} onClick={() => handlePageChange(page, currentLimit)}>
+                            <button className={`${tableStyles.button} ${page === currentPage ? tableStyles.activeButton : tableStyles.inactiveButton
+                                }`} key={page} onClick={() => handlePageChange(page, currentLimit)}>
                                 {page + 1}
-                            </button> :
-                            <button key={page} onClick={() => handlePageChange(page, currentLimit)}>
-                                {page + 1}
-                            </button>)
+                            </button>
                         )}
                         {pager.currentPage !== pager.pagesCount &&
-                            <button onClick={() => handlePageChange(currentPage + 1, currentLimit)}>
+                            <button className={tableStyles.button} onClick={() => handlePageChange(currentPage + 1, currentLimit)}>
                                 Next
                             </button>
                         }
                         {pager.currentPage !== pager.pagesCount &&
-                            <button onClick={() => handlePageChange(pager.pagesCount - 1, currentLimit)}>
+                            <button className={tableStyles.button} onClick={() => handlePageChange(pager.pagesCount - 1, currentLimit)}>
                                 Last
                             </button>
                         }
-                        <select>
+                        <select className={selectStyles.select}>
                             {limitDisplay.map(index =>
                             (<option key={index} value="" onClick={() => handlePageChange(currentPage, (index + 1) * LIMIT_MULTI)}>{(index + 1) * LIMIT_MULTI}</option>
                             ))
